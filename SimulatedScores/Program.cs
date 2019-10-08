@@ -21,7 +21,11 @@ namespace SimulatedScores
          var stopWatch = new Stopwatch();
          stopWatch.Start();
 
-         //TODO: ...
+         foreach (var name in names)
+         {
+            var info = ObtainInfo(name);
+            Console.WriteLine($"{name} is {info.Age} years old and has a score of {info.Score}");
+         }
 
          stopWatch.Stop();
          Console.WriteLine($"Processing completed in {stopWatch.Elapsed.TotalSeconds.ToString("##0.000")}s");
