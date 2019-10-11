@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
 namespace SimulatedScores
 {
@@ -42,7 +43,7 @@ namespace SimulatedScores
 
          //Score is calculated as a value in a range of 350-800
          int i = 0;
-         var score = name.Sum(l => l * (4 - i++ % 4)) % 551 + 300;
+         var score = name.Sum(l => { Thread.Sleep(10); return l * (4 - i++ % 4); }) % 551 + 300;
 
          return (age, score);
       }
