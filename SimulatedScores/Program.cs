@@ -21,7 +21,9 @@ namespace SimulatedScores
          var stopWatch = new Stopwatch();
          stopWatch.Start();
 
-         Console.WriteLine($"Average score for all {names.Count()} people is {names.Average(n => ObtainInfo(n).Score):###.#}");
+         //Millenials are those between the ages of 23 and 37 (as of 2019)
+         var infoForMillenials = names.Select(n => ObtainInfo(n)).Where(i => 23 <= i.Age && i.Age <= 37);
+         Console.WriteLine($"Average score for the {infoForMillenials.Count()} millenials is {infoForMillenials.Average(i => i.Score):###.#}");
 
          stopWatch.Stop();
          Console.WriteLine($"Processing completed in {stopWatch.Elapsed.TotalSeconds.ToString("##0.000")}s");
