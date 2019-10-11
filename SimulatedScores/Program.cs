@@ -24,7 +24,7 @@ namespace SimulatedScores
 
          //Millenials are those between the ages of 23 and 37 (as of 2019)
          int count = 0;  //"closed over" (closure) to allow average and count calculated in a single iteration
-         var averageScore = names.Select(n => ObtainInfo(n)).Where(i => 23 <= i.Age && i.Age <= 37).Average(i => { count++; return i.Score; });
+         var averageScore = names.Select(n => ObtainInfo(n)).Where(i => 23 <= i.Age && i.Age <= 37).Average(i => { count++; return i.ScoreFormula(); });
          Console.WriteLine($"Average score for the {count} millenials is {averageScore:###.#}");
 
          stopWatch.Stop();
@@ -32,20 +32,20 @@ namespace SimulatedScores
       }
 
       /// <summary>
-      /// Obtains person's age and a hypothetical score value (using contrived calculations).
+      /// Obtains person's age and a formula to calculate score value (using contrived calculations).
       /// </summary>
       /// <param name="name">Name of a person.</param>
-      /// <returns>Tuple containing age and score.</returns>
-      static (int Age, int Score) ObtainInfo(string name)
+      /// <returns>Tuple containing age and a formula to calculate score.</returns>
+      static (int Age, Func<int> ScoreFormula) ObtainInfo(string name)
       {
          //Age is a value in a range of 18-80
          var age = name.Sum(l => l) % 63 + 18;  // l = letter in the name
 
          //Score is calculated as a value in a range of 350-800
          int i = 0;
-         var score = name.Sum(l => { Thread.Sleep(10); return l * (4 - i++ % 4); }) % 551 + 300;
+         Func<int> scoreFormula = () => name.Sum(l => { Thread.Sleep(10); return l * (4 - i++ % 4); }) % 551 + 300;
 
-         return (age, score);
+         return (age, scoreFormula);
       }
 
    }
