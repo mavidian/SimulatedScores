@@ -21,7 +21,7 @@ namespace SimulatedScores
          var stopWatch = new Stopwatch();
          stopWatch.Start();
 
-         names.ForEach(n => { var info = ObtainInfo(n); Console.WriteLine($"{n} is {info.Age} years old and has a score of {info.Score}"); });
+         Console.WriteLine($"Average score for all {names.Count()} people is {names.Average(n => ObtainInfo(n).Score):###.#}");
 
          stopWatch.Stop();
          Console.WriteLine($"Processing completed in {stopWatch.Elapsed.TotalSeconds.ToString("##0.000")}s");
