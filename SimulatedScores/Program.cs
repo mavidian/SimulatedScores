@@ -23,9 +23,8 @@ namespace SimulatedScores
          stopWatch.Start();
 
          //Millenials are those between the ages of 23 and 37 (as of 2019)
-         int count = 0;  //"closed over" (closure) to allow average and count calculated in a single iteration
-         var averageScore = names.Select(n => ObtainInfo(n)).Where(i => 23 <= i.Age && i.Age <= 37).Average(i => { count++; return i.ScoreFormula(); });
-         Console.WriteLine($"Average score for the {count} millenials is {averageScore:###.#}");
+         var infoForMillenials = names.Select(n => ObtainInfo(n)).Where(i => 23 <= i.Age && i.Age <= 37);
+         Console.WriteLine($"Average score for the {infoForMillenials.Count()} millenials is {infoForMillenials.Average(i => i.ScoreFormula()):###.#}");
 
          stopWatch.Stop();
          Console.WriteLine($"Processing completed in {stopWatch.Elapsed.TotalSeconds.ToString("##0.000")}s");
