@@ -26,13 +26,12 @@ namespace SimulatedScores
          int totalScore = 0;
          foreach (var name in names)
          {
-            var info = ObtainInfo(name);
-
+            var age = ObtainAge(name);
             //Millenials are those between the ages of 23 and 37 (as of 2019)
-            if (23 <= info.Age && info.Age <= 37)
+            if (23 <= age && age <= 37)
             {
                count++;
-               totalScore += info.Score;
+               totalScore += ObtainScore(name);
             }
          }
          Console.WriteLine($"Average score for the {count} millenials is {(double)totalScore / count:###.#}");
@@ -42,20 +41,30 @@ namespace SimulatedScores
       }
 
       /// <summary>
-      /// Obtains person's age and a hypothetical score value (using contrived calculations).
+      /// Obtains person's age (using contrived calculations).
       /// </summary>
       /// <param name="name">Name of a person.</param>
-      /// <returns>Tuple containing age and score.</returns>
-      static (int Age, int Score) ObtainInfo(string name)
+      /// <returns>Person's age.</returns>
+      static int ObtainAge(string name)
       {
          //Age is a value in a range of 18-80
          var age = name.Sum(l => l) % 63 + 18;  // l = letter in the name
 
+         return age;
+      }
+
+      /// <summary>
+      /// Obtains person's hypothetical score value (using contrived calculations).
+      /// </summary>
+      /// <param name="name">Name of a person.</param>
+      /// <returns>Person's score.</returns>
+      static int ObtainScore(string name)
+      {
          //Score is calculated as a value in a range of 350-800
          int i = 0;
          var score = name.Sum(l => { Thread.Sleep(10); return l * (4 - i++ % 4); }) % 551 + 300;
 
-         return (age, score);
+         return score;
       }
 
    }
