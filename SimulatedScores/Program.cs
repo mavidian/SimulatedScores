@@ -42,7 +42,7 @@ namespace SimulatedScores
 
          //Score is calculated as a value in a range of 350-800
          int i = 0;
-         Func<int> scoreFormula = () => name.Sum(l => { Thread.Sleep(10); return l * (4 - i++ % 4); }) % 551 + 300;
+         int scoreFormula() => name.Sum(l => { Thread.Sleep(10); return l * (4 - i++ % 4); }) % 551 + 300;
 
          return (age, scoreFormula);
       }
