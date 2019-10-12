@@ -25,10 +25,16 @@ namespace SimulatedScores
          int totalScore = 0;
          foreach (var name in names)
          {
-            count++;
-            totalScore += ObtainInfo(name).Score;
+            var info = ObtainInfo(name);
+
+            //Millenials are those between the ages of 23 and 37 (as of 2019)
+            if (23 <= info.Age && info.Age <= 37)
+            {
+               count++;
+               totalScore += info.Score;
+            }
          }
-         Console.WriteLine($"Average score for all {count} people is {(double)totalScore / count:###.#}");
+         Console.WriteLine($"Average score for the {count} millenials is {(double)totalScore / count:###.#}");
 
          stopWatch.Stop();
          Console.WriteLine($"Processing completed in {stopWatch.Elapsed.TotalSeconds.ToString("##0.000")}s");
